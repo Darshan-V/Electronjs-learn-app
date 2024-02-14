@@ -2,6 +2,8 @@
   "name": "electron-app",
   "version": "0.1.0",
   "private": true,
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -17,10 +19,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export BROWSER=none && react-scripts start",
+    "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "package": "electron-builder build --mac --win -c.extraMetadata.main=build/electron.js --publish never",
+    "publish": "electron-builder build --mac --win --publish always "
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +44,38 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^28.2.2",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "mac": {
+      "publish": {
+        "provider": "github",
+        "owner": "Github Owner",
+        "repo": "Repository Name",
+        "private": true,
+        "token": ""
+      }
+    },
+    "win": {
+      "publish": {
+        "provider": "github",
+        "owner": "Github Owner",
+        "repo": "Repository Name",
+        "private": true,
+        "token": ""
+      }
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "publish": {
+      "provider": "github",
+      "private": true,
+      "owner": "Github Owner"
+    }
   }
 }
