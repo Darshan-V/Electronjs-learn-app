@@ -4,8 +4,8 @@ import Header from "./Header";
 
 const LayoutWrapper = ({ children }: any) => {
   return (
-    <div className="flex flex-col h-screen gap-2 ">
-      <div className="flex flex-col flex-1">
+    <div className=" ">
+      <div className="">
         <Header />
         {children}
       </div>

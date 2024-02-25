@@ -1,8 +1,16 @@
+import LayoutWrapper from "../../components/LayoutWrapper";
+import "./index.css";
+
 function index() {
   return (
-    <div className="index">
-      <p>🤡</p>
-      <button onClick={() => alert("hello")}>hello</button>
+    <div className="page">
+      <LayoutWrapper>
+        <div className="home_layout">
+          <div>side</div>
+          <div>main</div>
+          <div>rs</div>
+        </div>
+      </LayoutWrapper>
     </div>
   );
 }
