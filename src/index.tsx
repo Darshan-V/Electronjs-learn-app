@@ -1,21 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { ToastContainer } from "react-toastify";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import * as ReactRouter from "react-router-dom";
 
-import "react-toastify/dist/ReactToastify.css";
-import "./styles/index.css";
-import "./styles/tailwind.css";
-import "./styles/titlebar.css";
+import Home from "./pages/Home";
 
-import { Router } from "./router";
+const router = ReactRouter.createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
-	document.getElementById("root") as HTMLElement,
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
-	<React.StrictMode>
-		<ToastContainer position="bottom-right" autoClose={2500} />
-		<Router />
-	</React.StrictMode>,
+  <React.StrictMode>
+    <ReactRouter.RouterProvider router={router} />
+  </React.StrictMode>
 );

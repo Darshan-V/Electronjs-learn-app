@@ -1,56 +1,36 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
-const { autoUpdater } = require("electron-updater");
-const { createTray } = require("./utils/createTray");
-const { createMainWindow } = require("./utils/createMainWindow");
-const { createPopupWindow } = require("./utils/createPopupWindow");
-const { showNotification } = require("./utils/showNotification");
-const AutoLaunch = require("auto-launch");
-const remote = require("@electron/remote/main");
-const config = require("./utils/config");
-
-if (config.isDev) require("electron-reloader")(module);
-
-remote.initialize();
-
-if (!config.isDev) {
-	const autoStart = new AutoLaunch({
-		name: config.appName,
-	});
-	autoStart.enable();
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const url = require("url");
+function createWindow() {
+  const startUrl =
+    process.env.ELECTRON_START_URL ||
+    url.format({
+      pathname: path.join(__dirname, "../index.html"),
+      protocol: "file:",
+      slashes: true,
+    });
+  const win = new BrowserWindow({
+    width: 1000,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+  win.loadURL(startUrl);
+  app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+      app.quit();
+    }
+  });
 }
-
-app.on("ready", async () => {
-	config.mainWindow = await createMainWindow();
-	config.tray = createTray();
-	config.popupWindow = await createPopupWindow();
-
-	showNotification(
-		config.appName,
-		"Application running on background! See application tray.",
-	);
-});
-
+app.whenReady().then(createWindow);
 app.on("window-all-closed", () => {
-	if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
-
 app.on("activate", () => {
-	if (BrowserWindow.getAllWindows().length === 0)
-		config.mainWindow = createMainWindow();
-});
-
-ipcMain.on("app_version", (event) => {
-	event.sender.send("app_version", { version: app.getVersion() });
-});
-
-autoUpdater.on("update-available", () => {
-	config.mainWindow.webContents.send("update_available");
-});
-
-autoUpdater.on("update-downloaded", () => {
-	config.mainWindow.webContents.send("update_downloaded");
-});
-
-ipcMain.on("restart_app", () => {
-	autoUpdater.quitAndInstall();
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
 });
