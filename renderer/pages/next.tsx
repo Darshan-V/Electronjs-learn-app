@@ -1,7 +1,7 @@
-import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
+import React from "react";
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function NextPage() {
   return (
@@ -27,5 +27,5 @@ export default function NextPage() {
         </Link>
       </div>
     </React.Fragment>
-  )
+  );
 }
