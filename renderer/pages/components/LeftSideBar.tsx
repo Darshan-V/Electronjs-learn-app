@@ -10,30 +10,14 @@ const LeftSideBar: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <div className=" shadow-md w-full h-fit  p-2 ">
-        <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4 w-full min-w-fit">
+      <div className="  w-full h-fit  p-2 ">
+        <div className="flex flex-col ">
           {menuItems.map((item) => (
-            <Link href={""}>
+            <Link href={`/${item.label.toLowerCase()}`} key={item.id}>
               <button
                 key={item.id}
-                className="flex items-center space-x-2 py-2 border border-white rounded w-full text-left hover:bg-gray-600 hover:text-white px-4 transition-colors duration-300 ease-in-out"
-              >
-                <span className={`icon ${item.icon}`} />
-                <span className="label">{item.label}</span>
-              </button>
-            </Link>
-          ))}
-        </div>
-      </div>
-      <div className="h-[1px] w-full bg-gray-500" />
-      <div className=" shadow-md w-full h-fit   p-2 ">
-        <div className="flex flex-col gap-2">
-          {menuItems.map((item) => (
-            <Link href={""}>
-              <button
-                key={item.id}
-                className="flex items-center space-x-2 py-2 border border-white rounded w-full text-left hover:bg-gray-600 hover:text-white px-4 transition-colors duration-300 ease-in-out"
+                className="flex text-amber-50 items-center shadow-md shadow-gray-750  py-2  rounded w-full justify-center hover:bg-gray-600 hover:text-white px-4 transition-colors duration-300 ease-in-out"
               >
                 <span className={`icon ${item.icon}`} />
                 <span className="label">{item.label}</span>
