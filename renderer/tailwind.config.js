@@ -1,18 +1,20 @@
 const colors = require("tailwindcss/colors");
+import { nextui } from "@nextui-org/react";
 
 module.exports = {
   content: [
     "./renderer/pages/**/*.{js,ts,jsx,tsx}",
     "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
-    colors: {
-      // use colors only specified
-      white: colors.white,
-      gray: colors.gray,
-      blue: colors.blue,
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
     },
-    extend: {},
   },
-  plugins: [],
+  plugins: [nextui()],
 };
